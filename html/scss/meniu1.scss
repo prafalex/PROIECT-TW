@@ -1,0 +1,245 @@
+@import "../colors.css";
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+html {
+    overflow-x: hidden;
+  }
+#logo {
+  font-size: 26px;
+  color: var(--text-footer);
+  letter-spacing: 3px;
+  padding: 20px;
+  padding-bottom: 30px;
+  padding-top: 5px;
+  font-weight: bold;
+}
+
+header {
+  background: var(--nav-color);
+  text-align: center;
+  z-index: 999;
+  width: 100%;
+}
+
+.nav-toggle {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+  }
+
+  ul li {
+    > ul {
+      display: none;
+    }
+
+    &:hover > ul {
+      display: block;
+      animation-name: aparitie_meniu;
+      animation-iteration-count: 1;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
+      animation-timing-function: linear;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-footer);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    opacity: 0;
+    &:hover {
+      color: var(--text-color);
+      font-size: 1.4rem;
+    }
+  }
+  position: absolute;
+  text-align: left;
+  left: 0;
+  background: var(--background);
+  width: 100%;
+  outline: 2px solid var(--nav-color);
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+
+.nav-toggle:checked ~ nav {
+  transform: scale(1, 1);
+
+  a {
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+    transition: color 150ms linear;
+  }
+}
+
+nav {
+  background-color: var(--footer-color);
+  ul li ul {
+    width: 100%;
+  }
+}
+
+.nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1em;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.hamburger {
+  color: var(--text-footer);
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 200ms linear;
+
+  &:hover {
+    color: var(--text-color);
+  }
+}
+
+@media screen and (min-width: 966px) {
+  .nav-toggle-label {
+    display: none;
+  }
+
+  header {
+    width: 100vw;
+    display: grid;
+    position: relative;
+    grid-template-columns: .5fr auto;
+  }
+
+  .logo {
+    grid-column: 1 / 2;
+    transform: translateY(1rem);
+    font-weight: bold;
+  }
+
+  nav {
+    all: unset;
+    position: relative;
+    width: 93%;
+    grid-column: 2/2;
+    display: flex;
+    height: 3rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+
+    ul li > a {
+      opacity: 1;
+      position: relative;
+      transition: font-size .25s;
+    }
+
+    ul.meniu ul {
+      display: none;
+      position: absolute;
+      width: 100%;
+      margin-top: 1rem;
+      border-bottom: 2px solid var(--text-footer);
+    }
+
+    a {
+      &::before {
+        content: '';
+        display: block;
+        height: 4px;
+        background: var(--text-color);
+        position: absolute;
+        bottom: -.75rem;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transform-origin: left;
+        transition: transform ease-in-out 250ms;
+      }
+
+      &:hover::before {
+        transform: scale(1, 1);
+      }
+    }
+
+    ul {
+      display: flex;
+      justify-content: flex-end;
+
+      &.meniu {
+        > li {
+          margin-left: 2.5em;
+          text-align: justify;
+          float: left;
+          width: 120px;
+          position: relative;
+          height: 3rem;
+          padding-top: 3rem;
+
+          > ul {
+            transform: scale(1, 0);
+            transform-origin: top;
+            transition: transform 2s ease-in-out;
+          }
+
+          &:hover > ul {
+            display: block;
+            width: 200px;
+            background: var(--nav-color);
+            margin-right: 15%;
+            transform: scale(1, 1);
+          }
+        }
+
+        li > ul > li {
+          width: 10rem;
+          transform: translateX(-30px);
+          margin-left: 3rem;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:1200px)
+{
+  .text{display:none;}
+}
+@media screen and (max-width: 1200px) and (min-width: 966px) {
+  .text {
+    display: none;
+  }
+
+  .acasa {
+    width: 50px  !important;
+  }
+
+  nav {
+    padding-top: 3%;
+  }
+}
+
+@keyframes aparitie_meniu {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

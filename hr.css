@@ -1,0 +1,29 @@
+@import "colors.css";
+
+hr {
+    
+    border:3px solid var(--text-footer);
+    border-radius: 5px;
+    width: 90vw;
+  }
+
+  hr:before {
+    display:inline-block;
+    color: var(--text-footer);
+    content: '\274B';
+    font-size: 23px;
+    position: absolute;
+    font-size: 23px;
+    margin-left:-25px;
+    margin-top:-16px;
+    color: var(--text-footer);
+  }
+  hr:after {
+    display:inline-block;
+    color: var(--text-footer);
+    content: '\274B';
+    font-size: 23px;
+    position: absolute;
+    margin-left:90.2vw;
+    margin-top:-16px;
+  }

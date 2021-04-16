@@ -1,0 +1,50 @@
+@import "colors.css";
+
+.banner{
+    display:block;
+    position:fixed;
+    z-index:999;
+    margin:0  !important;
+    padding:0  !important;
+    background-color:var(--footer-color);
+    left:-100vw;
+    width:100%;
+    text-align: center;
+    height:100px;
+    bottom:0;
+    border:2px solid var(--nav-color);
+    animation-name:banner;
+    animation-duration: 10s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes banner {
+    5%   {
+        background-color:var(--nav-color);
+            color:var(--text-footer);
+            
+        }
+    25%  {background-color: var(--text-footer);
+    border-color:var(--nav-color);}
+    50%  {
+        background-color: var(--nav-color);
+        border-color: var(--text-footer);
+        color:var(--text-color);
+        left:0;
+    }
+    99%{
+        opacity:1;
+        background-color: var(--nav-color);
+        border-color: var(--text-footer);
+        color:var(--text-color);
+        left:0;
+    }
+    100%{
+        
+        left:-103vw;
+        position:absolute;
+        display:hidden;
+    }
+  }

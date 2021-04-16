@@ -1,0 +1,11 @@
+:root{
+    counter-reset:tr;
+}
+
+tbody>tr::before{
+    counter-increment:tr;
+    content:"" counter(tr) ".";
+}
+thead>tr:first-child::before{
+    content:"No.";
+}

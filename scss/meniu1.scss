@@ -1,0 +1,285 @@
+@import "../colors.css";
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+html {
+    overflow-x: hidden;
+  }
+#logo {
+  font-size: 26px;
+  color: var(--text-footer);
+  letter-spacing: 3px;
+  padding: 20px;
+  padding-bottom: 30px;
+  padding-top: 5px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+header {
+  background: var(--nav-color);
+  text-align: center;
+  z-index: 999;
+  width: 100%;
+}
+
+.nav-toggle {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul li {
+    justify-content: center;
+    text-align: center;
+    padding-top:1rem;
+    width:100vw;
+    background-color:var(--footer-color);
+    ul{
+      width:100%;
+    }
+    > ul {
+      display: none;
+    }
+
+    &:hover > ul {
+      display: block;
+      animation-name: aparitie_meniu;
+      animation-iteration-count:1;
+      animation-duration:0.3s;
+      animation-fill-mode:forwards;
+      animation-timing-function:linear;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-footer);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 250ms ease-in-out 250ms;
+    transition: color 200ms linear;
+    &:hover {
+      color: var(--text-color);
+      font-size: 1.4rem;
+    }
+  }
+  position: absolute;
+  left: 0;
+  //width: 100%;
+  outline: 2px solid var(--nav-color);
+  transform: scale(0, 1);
+  transform-origin: left;
+  
+}
+
+.nav-toggle:checked ~ nav {
+  transform: scale(1, 1);
+  transition: transform 400ms ease-in-out;
+  a {
+    opacity: 1;
+    
+  }
+}
+
+.nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1em;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  
+}
+
+.hamburger {
+  color: var(--text-footer);
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 200ms linear;
+
+  &:hover {
+    color: var(--text-color);
+  }
+}
+@media screen and (min-width: 966px) {
+  nav ul li{
+    padding-top: 0;
+    background-color: transparent;
+  }
+  .nav-toggle-label {
+    display: none;
+  }
+  .submeniu{
+    position: relative;
+    width: 180px !important ;
+    li{
+    height: 58px;
+  }
+}
+ul li ul{
+    &.homesubmeniu li
+    {
+      line-height: 60px;
+    }
+    li{
+      position:relative;
+      background-color: var(--nav-color);
+      width: 100%;
+      height:60px;
+      margin-left:30px;
+      text-align: center;
+      
+
+      &:before{
+      content:"";
+      height: 100%;
+      width: 10px;
+      left:0;
+      background: rgb(212,235,242);
+      background: linear-gradient(90deg, rgba(212,235,242,1) 11%, rgba(253,131,38,1) 100%);
+      position:absolute;
+      }
+  
+      &:after{
+      content:"";
+      height: 100%;
+      width: 10px;
+      right:0px;
+      top:0;
+      background: rgb(212,235,242);
+      background: linear-gradient(270deg, rgba(212,235,242,1) 11%, rgba(253,131,38,1) 100%);
+      position:absolute;
+      }
+  
+      &:after,&:before{
+        transform:scale(1,0);
+        transform-origin: top;
+        transition: transform .3s ease-in;
+      }
+  
+      &:hover:after,&:hover:before{
+      transform:scale(1,1);
+      }
+    }
+    background-color: var(--nav-color);
+  }
+  header {
+    width: 100vw;
+    display: grid;
+    position: relative; 
+    grid-template-columns: .5fr auto;
+  }
+
+  .logo {
+    grid-column: 1 / 2;
+    transform: translateY(1rem);
+    font-weight: bold;
+  }
+  nav {
+    all: unset;
+    position: relative;
+    width: 93%;
+    grid-column: 2/2;
+    display: flex;
+    height: 3rem;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+
+    ul li > a {
+      opacity: 1;
+      transition: font-size .25s;
+    }
+
+    ul.meniu ul {
+      display: none;
+      position: absolute;
+      width: 100%;
+      margin-top: 1rem;
+      border-bottom: 2px solid var(--text-footer);
+    }
+    ul {
+      display: flex;
+      justify-content: flex-end;
+
+      &.meniu {
+        > li {
+          margin-left: 2.5em;
+          text-align: justify;
+          float: left;
+          width: 120px;
+          position: relative;
+          height: 3rem;
+          padding-top: 3rem;
+          > ul{
+            width: 200px;
+            //background: var(--nav-color);
+            margin-right: 15%;
+          }
+          
+        }
+        li > ul > li {
+          transform: translateX(-30px);
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:1200px)
+{
+  .text{display:none;}
+}
+@media screen and (max-width: 1200px) and (min-width: 966px) {
+  .text {
+    display: none;
+  }
+  .main-nav>li{
+    padding-top:3px  !important;
+    ul{
+      margin-top:12px;
+    }
+  }
+  .acasa {
+    width: 50px  !important;
+  }
+  nav {
+    padding-top: 3%;
+  }
+}
+@keyframes aparitie_meniu {
+  0% {
+    opacity: 0;
+    transform: scale(1,0);
+    transform-origin: top;
+  }
+  50%{
+    transform: scale(1,1);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes aparitie_bare {
+  0% {
+    opacity: 0;
+    transform: scale(1,0);
+    transform-origin: top;
+  }
+  50%{
+    transform: scale(1,1);
+  }
+  100% {
+    opacity: 1;
+  }
+}

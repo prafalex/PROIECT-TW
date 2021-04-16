@@ -1,0 +1,53 @@
+@import "colors.css";
+
+@media screen and (max-width:966px){
+    
+    #divtable{
+        width:60vw  !important;
+        display:block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+table, th, td {
+    border: 1px solid var(--footer-color);
+    border-collapse: collapse;
+    border-radius: 3px;
+  }
+#table{
+    border-collapse: separate;
+    border-spacing:1px;
+    
+}
+table th{
+    width: 200px;
+}
+tr:nth-child(even){
+    background-color:var(--nav-color);
+}
+
+tr:nth-child(odd){
+    background-color:var(--top-color);
+}
+thead>tr:first-child{
+    background-color:transparent;
+}
+
+tr:hover{
+    background-color:var(--text-color);
+}
+
+tr:first-child:hover{
+    background-color: transparent;
+}
+tfoot>tr{
+    background-color:var(--nav-color)  !important;
+    text-align: center;
+    
+}
+tfoot td{
+    border:none;
+}
+tr:hover{
+    background-color:var(--text-color) !important;
+}
