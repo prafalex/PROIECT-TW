@@ -4,6 +4,8 @@
         <title>Galerie</title>
         <link rel="stylesheet" href="/resurse/css/galerie-statica.css" type='text/css'/>
         <link rel="stylesheet" href="/resurse/css/galerie-css.css" type="text/css"/>
+        <link rel="stylesheet" href="/resurse/scss/gal-animata.css" type="text/css"/>
+
         <%- include('../fragmente/head')%>
     </head>
     <body>
@@ -16,7 +18,19 @@
         <section id="galerie-statica">
             
             <%- include('../fragmente/galerie') %>
-
+        </section>
+        <section id="galerie-animata">
+            <h1>Galerie Animata</h1>
+            <% for(let im of locals.rand){
+                %>
+                <figcaption><picture>
+                  <img src="<%- im.imagine%>" alt=""/>
+                </picture>
+                <h3><%- im.titlu %></h3>
+                </figcaption> 
+                
+                <%
+              }%>
         </section>
         <%- include("../fragmente/watermark") %>
             

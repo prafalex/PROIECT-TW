@@ -3,9 +3,19 @@ const { restart } = require("nodemon");
 const fs=require("fs");
 const path=require('path');
 const sharp=require('sharp');
+
 var app=express();
 
 //set view
+//functie numar random
+function numar() {
+    var nr= Math.floor(Math.random() * (12 - 7) ) + 7;
+    while(nr==10)
+    {
+        nr=Math.floor(Math.random() * (12 - 7) ) + 7;
+    }
+    return nr;
+  }
 
 //functie anotimp
 function getSeason() {
@@ -80,10 +90,34 @@ function Imagini(){
 }
 return vectorCai;
 }
+function ImaginiRand(){
+    var textFisier=fs.readFileSync("resurse/json/galerie.json");
+    var jsi=JSON.parse(textFisier);
+    var caleGalerie=jsi.cale_galerie;
+    let vectorCai=[];
+    jsi.imagini.sort(() => Math.random() - 0.5);
+    var nrdelete=jsi.imagini.length-numar();
+    if(nrdelete>0){
+        while(nrdelete>0){
+            jsi.imagini.pop()
+            nrdelete--;
+        }
+    }
 
+    for(let im of jsi.imagini){
+        var imVeche=path.join(caleGalerie,im.cale_fisier)
+        vectorCai.push({imagine:imVeche,titlu:im.titlu});
+    }
+    return vectorCai;
+}
 
+v=ImaginiRand();
+console.log(v.length);
+console.log(v);
 
 app.get("/",function(req,res){
+    let nr=numar();
+    console.log(nr);
     let vectorcai=verificaImagini();
     res.render('pagini/index',{ip:req.ip,imagini:vectorcai});
    
@@ -96,7 +130,8 @@ app.get("/index",function(req,res){
 
 app.get("/galerie",function(req,res){
     let vectorcai=Imagini();
-    res.render('pagini/galerie',{imagini:vectorcai});
+    let imgrand=ImaginiRand();
+    res.render('pagini/galerie',{imagini:vectorcai,rand:imgrand});
    
 });
 
