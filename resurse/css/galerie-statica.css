@@ -1,0 +1,53 @@
+@import "colors.css";
+#galerie-statica{
+    padding-left:0%;
+    padding-right:4%;
+  }
+  
+  #grid-galerie {
+    padding-bottom:3%;
+   display:grid;
+   grid-template-columns: repeat(3,1fr);
+   grid-row-gap:2em;
+   grid-column-gap:3em;
+   
+  }
+  #grid-galerie>figcaption{
+    margin:auto;
+    background-color: var(--footer-color);
+    border-bottom: 3px solid var(--nav-color);
+    transition:all 200ms linear;
+  }
+  #grid-galerie>figcaption:hover{
+    border-color: var(--text-footer);
+  }
+  #grid-galerie h3{
+    transition: all 200ms linear;
+    color:var(--text-footer);
+  }
+  #grid-galerie>figcaption:hover>h3{
+    color:var(--background-color);
+  }
+
+  #grid-galerie img{
+    width: 100%;
+  }
+  #grid-galerie>figcaption:hover img{
+    width:100%;
+  }
+  #grid-galerie figcaption{
+    text-align:center;
+  }
+
+  @media screen and (max-width:1200px){
+      #grid-galerie{
+          grid-template-columns:repeat(2,1fr);
+      }
+  }
+  @media screen and (max-width:768px){
+    #grid-galerie {
+        display:grid;
+        grid-template-columns: 1fr;
+        width: 60%;
+    }
+  }

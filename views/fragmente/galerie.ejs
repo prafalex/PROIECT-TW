@@ -1,0 +1,14 @@
+
+    <div id="grid-galerie">
+        <% for(let im of locals.imagini){
+          %>
+          <figcaption><picture>
+            <source srcset="<%- im.mic %>" media="(max-width:768px)"/>
+            <img src="<%- im.mare%>" alt=""/>
+          </picture>
+          <h3><%- im.titlu %></h3>
+          </figcaption> 
+          
+          <%
+        }%>
+    </div>
