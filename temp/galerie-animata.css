@@ -1,0 +1,17 @@
+/* Error: Expected "to" or "from".
+ *    ,
+ * 65 |     calc(1/8*100)%{z-index:10;opacity:0;transform:skewX(90deg);}
+ *    |     ^
+ *    '
+ *   temp\galerie-animata.scss 65:2  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: Expected "to" or "from".\a    \2577 \a 65 \2502      calc(1/8*100)%{z-index:10;opacity:0;transform:skewX(90deg);}\d\a    \2502      ^\a    \2575 \a   temp\\galerie-animata.scss 65:2  root stylesheet';
+}

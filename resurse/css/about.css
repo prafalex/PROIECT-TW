@@ -1,0 +1,51 @@
+@import "colors.css";
+main{
+    padding: 0 2%;
+}
+img
+{
+    width: 100%;
+}
+#grid-echipa{
+    padding-bottom:3%;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-row-gap:2em;
+    grid-column-gap:3em;
+    text-align: center;
+}
+figcaption{
+    background-color: var(--footer-color);
+    transition:all 200ms linear;
+
+}
+figcaption:hover{
+    transform: scale(1.05);
+}
+
+#grid-echipa h3{
+    text-align: center;
+    color:white;
+    font-weight: 300;
+}
+@media screen and (max-width:1200px){
+    #grid-echipa{
+        grid-template-columns:repeat(2,1fr);
+    }
+    figcaption{
+        width:80%;
+    }
+}
+@media screen and (max-width:768px){
+  #grid-echipa {
+      display:grid;
+      grid-template-columns: 1fr;
+      width: 60%;
+  }
+}
+@media screen and (min-width:1200px)
+{
+    figcaption{
+        width:75%;
+    }
+}

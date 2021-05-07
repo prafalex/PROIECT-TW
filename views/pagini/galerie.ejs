@@ -2,11 +2,13 @@
 <html>
     <head>
         <title>Galerie</title>
-        <link rel="stylesheet" href="/resurse/css/galerie-statica.css" type='text/css'/>
         <link rel="stylesheet" href="/resurse/css/galerie-css.css" type="text/css"/>
-        <link rel="stylesheet" href="/resurse/scss/gal-animata.css" type="text/css"/>
-
+        
+        <link rel="stylesheet" href="/resurse/css/galerie-statica.css" type='text/css'/>
+        
         <%- include('../fragmente/head')%>
+        <link rel="stylesheet" href="/resurse/css/galerie-animata.css" type="text/css" />
+        
     </head>
     <body>
         <div class=header-div>
@@ -16,24 +18,60 @@
         <main>
             <h1>Galerie</h1>
         <section id="galerie-statica">
-            
             <%- include('../fragmente/galerie') %>
         </section>
-        <section id="galerie-animata">
-            <h1>Galerie Animata</h1>
-            <% for(let im of locals.rand){
-                %>
-                <figcaption><picture>
-                  <img src="<%- im.imagine%>" alt=""/>
-                </picture>
-                <h3><%- im.titlu %></h3>
-                </figcaption> 
-                
-                <%
-              }%>
+         
+
+        <section id="sectiune-galerie-animata">
+            <h2>Galerie animata</h2>
+            <div id="galerie-animata" class="galerie-a">
+                <% for (let imag of locals.rand){  %>
+                <figure>
+                    <picture>
+                        <img src="/<%-imag.imagine%>" alt=""/>
+                    </picture>
+                    <figcaption><%-imag.titlu%></figcaption>
+                </figure>
+                <% } %>
+            </div>
         </section>
+
+
+    <!--<div id="galerie_exemplu" class="galerie" >
+            <div>
+                <figure>
+                    <img src="/resurse/imagini/galerie/diferential.png" alt="cladire colorata" />
+                    <figcaption>Cladire colorata</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/mecanic.png" alt="lampioane" />
+                    <figcaption>Lampioane</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/service-3.png" alt="gradinita" />
+                    <figcaption>Gradinita</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/service.png" alt="peisaj" />
+                    <figcaption>Peisaj</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/service2.png" alt="piateta" />
+                    <figcaption>Piateta</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/scule.png" alt="pietre" />
+                    <figcaption>Pietre</figcaption>
+                </figure>
+                <figure>
+                    <img src="/resurse/imagini/galerie/motor.png" alt="plante" />
+                    <figcaption>Plante</figcaption>
+                </figure>
+            </div>
+        </div> -->
+        
+
         <%- include("../fragmente/watermark") %>
-            
         </main>
 
         <footer>

@@ -24,6 +24,7 @@
   #grid-galerie h3{
     transition: all 200ms linear;
     color:var(--text-footer);
+    font-weight: 300;
   }
   #grid-galerie>figcaption:hover>h3{
     color:var(--background-color);

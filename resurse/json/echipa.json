@@ -1,0 +1,41 @@
+{
+	"cale_galerie":"resurse/imagini/echipa",
+	"imagini": [
+		{
+			"cale_fisier":"alexandra.jpg",
+			"titlu":"Alexandra - Receptie service",
+			"alt":"alexandra"
+		},
+		{
+			"cale_fisier":"andreea.jpg",
+			"titlu":"Andreea - Manager Shop",
+			"alt":"andreea"
+		},
+		{
+			"cale_fisier":"anita.jpg",
+			"titlu":"Anita - Manager Service",
+			"alt":"anita"
+		},
+		{
+			"cale_fisier":"ionela.jpg",
+			"titlu":"Ionela - Secretara",
+			"alt":"ionela"
+		},
+		{
+			"cale_fisier":"ionut.jpg",
+			"titlu":"Ionut - Vopsitor",
+			"alt":"ionut"
+		},
+		{
+			"cale_fisier":"vali.jpg",
+			"titlu":"Vali - Mecanic Sef",
+			"alt":"vali"
+		},
+		{
+			"cale_fisier":"paul.jpg",
+			"titlu":"Paul - Ucenic",
+			"alt":"paul"
+		}
+		
+	]
+}

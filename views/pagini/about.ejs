@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example</title>
+        <title>About us</title>
         <%- include('../fragmente/head')%>
+        <link rel="stylesheet" type="text/css" href="/resurse/css/about.css"/>
     </head>
     <body>
         <div class=header-div>
@@ -10,7 +11,33 @@
         </div>
     
         <main>
+            <h1> Cine suntem noi ?</h1>
             <%- include("../fragmente/watermark") %>
+            <div><h2>Scurt istoric</h2>
+                <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero ab veniam quos quam provident. Cum qui accusantium, nihil architecto reprehenderit et magnam aliquam iste porro soluta optio itaque unde blanditiis distinctio consequatur perspiciatis tenetur consequuntur facere culpa eligendi doloribus iusto. Nesciunt ad cumque ipsam modi repudiandae ex dolore sequi illum?
+                </p>
+            </div>
+            <div>
+                <h2>Ce ne recomanda?</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id itaque nobis possimus? Eum nemo consequuntur fugit distinctio repudiandae eos incidunt! Corrupti enim delectus eius qui dolores nulla alias? A, fugiat!
+                </p>
+            </div>
+            <div>
+                <h2>Echipa</h2>
+                <div id="grid-echipa">
+                    <% for(let im of echipa){
+                        %>
+                        <figcaption>
+                            <picture>
+                                <source srcset="<%- im.mic %>" media="(max-width:768px)"/>
+                                <img src="<%- im.mare %>" alt=""/> 
+                            </picture>
+                            <h3><%- im.titlu %></h3>
+                        </figcaption>
+                        <%
+                    }%>
+                </div>
+            </div>
         </main>
 
         <footer>
