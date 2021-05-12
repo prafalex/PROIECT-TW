@@ -1,17 +1,114 @@
-/* Error: Expected "to" or "from".
- *    ,
- * 65 |     calc(1/8*100)%{z-index:10;opacity:0;transform:skewX(90deg);}
- *    |     ^
- *    '
- *   temp\galerie-animata.scss 65:2  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: 'Error: Expected "to" or "from".\a    \2577 \a 65 \2502      calc(1/8*100)%{z-index:10;opacity:0;transform:skewX(90deg);}\d\a    \2502      ^\a    \2575 \a   temp\\galerie-animata.scss 65:2  root stylesheet';
+.galerie-a {
+  width: 400px;
+  height: 266px;
+  border: 10px inset;
+  border-image: url(/resurse/imagini/bg.jpg) 30 round;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 5rem;
 }
+
+.galerie-a figcaption {
+  position: absolute;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  text-align: center;
+}
+
+.galerie-a figure {
+  position: relative;
+  width: 400px;
+  height: 266px;
+  top: -20px;
+  left: -40px;
+}
+
+#galerie-animata figure {
+  position: absolute;
+  z-index: 0;
+  animation-name: gal_exemplu;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-duration: 24s;
+  transform-origin: left;
+}
+
+#galerie-animata:hover figure {
+  animation-play-state: paused;
+}
+
+#galerie-animata figure:nth-of-type(8) {
+  animation-delay: 0s;
+}
+
+#galerie-animata figure:nth-of-type(7) {
+  animation-delay: 3s;
+}
+
+#galerie-animata figure:nth-of-type(6) {
+  animation-delay: 6s;
+}
+
+#galerie-animata figure:nth-of-type(5) {
+  animation-delay: 9s;
+}
+
+#galerie-animata figure:nth-of-type(4) {
+  animation-delay: 12s;
+}
+
+#galerie-animata figure:nth-of-type(3) {
+  animation-delay: 15s;
+}
+
+#galerie-animata figure:nth-of-type(2) {
+  animation-delay: 18s;
+}
+
+#galerie-animata figure:nth-of-type(1) {
+  animation-delay: 21s;
+}
+
+@keyframes gal_exemplu {
+  0% {
+    z-index: 10;
+    opacity: 1;
+  }
+  /*perioada 0-5% in care se afiseaza fara efect */
+  6.25% {
+    transform: scale(1, 0.2);
+  }
+  12% {
+    opacity: 1;
+  }
+  12.5% {
+    z-index: 10;
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+  12.501% {
+    z-index: -10;
+    transform: rotate(0deg);
+  }
+  /* il ascund cat mai in spate sa nu vina peste imaginile care erau mai sus in html decat el*/
+  87.5% {
+    opacity: 0;
+    z-index: -10;
+  }
+  87.501% {
+    z-index: 0;
+  }
+  100% {
+    opacity: 1;
+    z-index: 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  #sectiune-galerie-animata {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=galerie-animata.css.map */

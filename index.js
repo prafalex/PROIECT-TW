@@ -50,6 +50,33 @@ function getSeason() {
     return season
 }
 
+function getAnotimp(luna){
+    switch(luna){
+        case 'decembrie':
+        case 'ianuarie':
+        case 'februarie':
+            season = "iarna";
+        break;
+        case 'martie':
+        case 'aprilie':
+        case 'mai':
+            season = "primavara";
+        break;
+        case 'iunie':
+        case 'iulie':
+        case 'august':
+            season = "vara";
+        break;
+        case 'septembrie':
+        case 'octombrie': 
+        case 'noiembrie':
+            season = "toamna";
+        break;
+    }
+    return season
+}
+
+
 app.set('trust proxy', true);
 
 app.get("*/gal-animata.css", function(req,res){
@@ -110,14 +137,15 @@ app.use("/resurse", express.static(__dirname+"/resurse"));
 
 function verificaImagini(){
     var i=0;
-    var anotimp=getSeason();
+    var season=getSeason();
     var textFisier=fs.readFileSync("resurse/json/galerie.json");
     var jsi=JSON.parse(textFisier);
     var caleGalerie=jsi.cale_galerie;
     let vectorCai=[];
     for(let im of jsi.imagini){
         if(i<12){
-            if(anotimp==im.anotimp){
+            for(let anotimp of im.luni){
+            if(season==getAnotimp(anotimp)){
         var imVeche=path.join(caleGalerie,im.cale_fisier)
         var ext=path.extname(im.cale_fisier);
         var numeFisier=path.basename(im.cale_fisier,ext);
@@ -127,6 +155,7 @@ function verificaImagini(){
             .toFile(imNoua);
         vectorCai.push({mare:imVeche,mic:imNoua,titlu:im.titlu});
         i++;
+            }
             }
         }
         

@@ -5,50 +5,50 @@
 			"cale_fisier":"diferential.png",
 			"titlu":"Diferential auto",
 			"alt":"diferential auto", "text_descriere":"Diferentialul unei masini de off-road.",
-			"anotimp":"primavara"
+			"luni":["martie","februarie","iunie"]
 		},
 		{
 			"cale_fisier":"motor.png",
 			"titlu":"Interior motor",
 			"alt":"motor desfacut", "text_descriere":"Interiorul unui motor",
-			"anotimp":"primavara"
+			"luni":["ianuarie","aprilie","iunie"]
 		},
 		{
 			"cale_fisier":"motor2.png",
 			"titlu":"Motor 4-linie",
 			"alt":"motor", "text_descriere":"Interiorul unui motor",
-			"anotimp":"primavara"
+			"luni":["ianuarie","februarie","iunie"]
 		},
 		{
 			"cale_fisier":"scule.png",
 			"titlu":"Uneltele noastre",
 			"alt":"unelte", "text_descriere":"Cateva dintre uneltele pe care le folosim.",
-			"anotimp":"toamna"
+			"luni":["ianuarie","mai","iunie"]
 		},
 		{
 			"cale_fisier":"service.png",
 			"titlu":"Interior service",
 			"alt":"service", "text_descriere":"Aceasta este o imagine din service-ul nostru.",
-			"anotimp":"primavara"
+			"luni":["ianuarie","februarie","iunie"]
 		},
 		{
 			"cale_fisier":"service-3.png",
 			"titlu":"Interior service",
 			"alt":"service", "text_descriere":"Aceasta este o imagine din service-ul nostru.",
-			"anotimp":"primvara"
+			"luni":["ianuarie","februarie","iunie"]
 		},
 		{
 			"cale_fisier":"service2.png",
 			"titlu":"Lucrator service",
 			"alt":"lucrator", "text_descriere":"Aici puteti observa pe unul dintre angajatii nostri. ",
-			"anotimp":"toamna",
+			"luni":["ianuarie","februarie","iunie"],
 			"author":"irina slutsky"
 		},
 		{
 			"cale_fisier":"mecanic.png",
 			"titlu":"Mecanic",
 			"alt":"mecanic", "text_descriere":"Unul dintre angajatii nostri. ",
-			"anotimp":"iarna"
+			"luni":["ianuarie","februarie","iunie"]
 		}
 		
 	]
