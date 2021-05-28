@@ -1,0 +1,17 @@
+h1 {
+  padding-left: 1%;
+  color: #2775ce;
+  font-size: 30px;
+}
+article {
+  margin-left: 2%;
+}
+.caracteristica {
+  font-weight: bold;
+  color: #2775ce;
+}
+.div2 {
+  position: relative;
+  top: -350px;
+  left: 500px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Produse</title>
+    <link rel="stylesheet" href="/resurse/css/produs.css" type="text/css" />
+
+    <%- include('../fragmente/head')%>
+  </head>
+  <body>
+    <div class="header-div"><%- include("../fragmente/header") %></div>
+
+    <main>
+      <section>
+        <article class="produs">
+          <h2 class="nume">
+            <span class="caracteristica val-nume">Nume:</span>
+            <span><%- prod.nume %></span>
+          </h2>
+          <p class="descriere">
+            <span class="caracteristica">Descriere:</span>
+            <span><%- prod.descriere %></span>
+          </p>
+          <p class="pret">
+            <span class="caracteristica">Pret:</span>
+            <span><%- prod.pret %></span>
+          </p>
+          <p class="categorie">
+            <span class="caracteristica">Categorie:</span>
+            <span><%- prod.categorie %></span>
+          </p>
+          <p class="Voucher">
+            <span class="caracteristica">Voucher:</span>
+            <span> <% if(prod.voucher){ %> Da <% } else{ %> Nu <% } %> </span>
+          </p>
+          <p class="Garantie">
+            <span class="caracteristica">Garantie:</span>
+            <span><%- prod.garantie %></span>
+          </p>
+          <p class="Culoare">
+            <span class="caracteristica">Culoare:</span>
+            <span><%- prod.culoare %></span>
+          </p>
+          <p class="mod_exp">
+            <span class="caracteristica">Mod expediere:</span>
+            <span><%- prod.mod_exp %></span>
+          </p>
+          <p class="compatibil">
+            <span class="caracteristica">Compatibil pentru:</span>
+            <span
+              ><%for( let comp of prod.compatibil){ %> <%- comp %> <% } %>
+            </span>
+          </p>
+        </article>
+        <div class="div2">
+          <img
+            src="/resurse/imagini/produse/<%- prod.imagine %>"
+            alt="imagine produs"
+          />
+        </div>
+      </section>
+      <%- include("../fragmente/watermark") %>
+    </main>
+
+    <footer><%- include("../fragmente/footer") %></footer>
+  </body>
+</html>

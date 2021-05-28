@@ -23,6 +23,7 @@
     "express-sharp": "^4.2.24",
     "node-sass": "^5.0.0",
     "node-sass-middleware": "^0.11.0",
+    "pg": "^8.6.0",
     "sass": "^1.32.12",
     "sharp": "^0.28.1"
   },

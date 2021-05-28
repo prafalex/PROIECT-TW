@@ -19,11 +19,13 @@
         <li ><a class="nav-links" href="/about">About</a></li>
         <li ><a class="nav-links"  href="/shop">Shop</a></li>
         <li ><a class="nav-links"  href="/contact">Contact</a></li>
-        <li ><a class="nav-links" href="/programare">Programare
+        <li ><a class="nav-links" href="/produse">Produse
         </a>
         <ul class="submeniu"> 
-            <li><a href="#"> Programare consultatie</a></li>
-            <li><a href="#"> Programare reparatie</a></li>
+            <%for( let categ of categorii){ %>
+                <li><a href="/produse?categ=<%-categ%>"> <%-categ%></a></li>
+            <% 
+            } %> 
         </ul>
         </li>
         </ul>

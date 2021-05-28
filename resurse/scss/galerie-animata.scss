@@ -51,11 +51,11 @@ $t1: $t+0.001;
 $x:100-$t;
 $x1: $x+0.001;
 @keyframes gal_exemplu{ 
-	0% {z-index:10;opacity:1;} /*perioada 0-5% in care se afiseaza fara efect */
+	0% {z-index:10;opacity:1;} 
 	#{$t/2}% {transform:scale(1,0.2);}
 	12%{opacity:1;} 
 	#{$t}%{z-index:10;opacity:0;transform:rotate(90deg);}
-	#{$t1}%{z-index:-10; transform:rotate(0deg);}/* il ascund cat mai in spate sa nu vina peste imaginile care erau mai sus in html decat el*/
+	#{$t1}%{z-index:-10; transform:rotate(0deg);}
 	
 	#{$x}%{opacity:0;z-index:-10;}	
 	#{$x1}%{z-index:0;}

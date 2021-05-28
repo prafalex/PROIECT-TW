@@ -1,5 +1,6 @@
 const express=require("express");
 const { restart } = require("nodemon");
+const {Client}=require("pg");
 const fs=require("fs");
 const path=require('path');
 const sharp=require('sharp');
@@ -9,6 +10,14 @@ const { exec } = require("child_process");
 var app=express();
 const ejs=require('ejs');
 
+const client=new Client({
+    host:'localhost',
+    user:'alexpraf',
+    password:'prafalex',
+    database:'db_prod',
+    port:5432
+});
+client.connect();
 //set view
 app.set("view engine", "ejs");
 //functie numar random
@@ -223,8 +232,16 @@ var imgrand=ImaginiRand();
 
 app.get(["/","/index"],function(req,res){
     let vectorcai=verificaImagini();
-    res.render('pagini/index',{ip:req.ip,imagini:vectorcai});
-   
+    const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+        var i=0; 
+                var categorii=Object.values(rez.rows);
+                for(let categ of  rez.rows){
+                     categorii[i]=categ.unnest;
+                     i++;
+                 }
+        res.render('pagini/index',{ip:req.ip,imagini:vectorcai,categorii:categorii});
+    })
+    
 });
 
 
@@ -232,22 +249,85 @@ app.get(["/","/index"],function(req,res){
 app.get("/galerie",function(req,res){
     let vectorcai=Imagini();
     imgrand=ImaginiRand();
-    //console.log(imgrand.length);
-    res.render('pagini/galerie',{imagini:vectorcai,rand:imgrand});
-   
+    const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+        var i=0; 
+                var categorii=Object.values(rez.rows);
+                for(let categ of  rez.rows){
+                     categorii[i]=categ.unnest;
+                     i++;
+                 }
+        res.render('pagini/galerie',{imagini:vectorcai,rand:imgrand,categorii:categorii});
+    })
+    
 });
 
 
     
 app.get("/about",function(req,res)
 {
-    let echipa=ImaginiEchipa();
-    res.render('pagini/about',{echipa:echipa});
+    var echipa=ImaginiEchipa();
+    const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+        var i=0; 
+                var categorii=Object.values(rez.rows);
+                for(let categ of  rez.rows){
+                     categorii[i]=categ.unnest;
+                     i++;
+                 }
+        res.render('pagini/about',{echipa:echipa,categorii:categorii});
+    })
     
-})
+    
+});
+
+app.get("/produse",function(req,res){
+
+         console.log(req.url);
+         console.log("Query:",req.query.categ);
+        var conditie = req.query.categ ? "and categorie='"+req.query.categ+"'": "";        
+        const rezultat=client.query("select id,nume,pret,culoare,mod_exp,to_char(data_adaugare,'DD-Month-YYYY[Day]') data_adaugare,to_char(data_adaugare,'DD-MM-YYYY') data_adaug,voucher,compatibil,categorie,descriere,imagine from produse where 1=1"+conditie, function(err,rezProd){
+        
+            const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+                var i=0; 
+                var categorii=Object.values(rez.rows);
+                for(let categ of  rez.rows){
+                     categorii[i]=categ.unnest;
+                     i++;
+                 }
+                
+                 res.render("pagini/produse",{produse:rezProd.rows,categorii:categorii});
+        
+            }); 
+            
+    })
+});
+
+app.get("/produs/:id_prod",function(req,res){
+    const rezultat=client.query("select * from produse where id="+req.params.id_prod, function(err,rezProd){
+        const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+            var i=0; 
+                var categorii=Object.values(rez.rows);
+                for(let categ of  rez.rows){
+                     categorii[i]=categ.unnest;
+                     i++;
+                 }
+            res.render("pagini/produs",{prod:rezProd.rows[0],categorii:categorii});
+        })
+        
+    })
+});
+
+
 
 app.get('/*', (req,res)=>{
-    res.render("pagini"+req.url, (err,rezultatRender)=>{
+
+    const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+        var i=0; 
+            var categorii=Object.values(rez.rows);
+            for(let categ of  rez.rows){
+                 categorii[i]=categ.unnest;
+                 i++;
+             }
+        res.render("pagini"+req.url,{categorii:categorii},(err,rezultatRender)=>{
         if(err){
             if(err.message.includes("Failed to lookup view")){
                 res.status(404).render("pagini/404");
@@ -256,8 +336,12 @@ app.get('/*', (req,res)=>{
                 throw err;
         }
         else
-            res.send(rezultatRender);    
+            res.send(rezultatRender); 
+    })
+       
     });
 })
+
+
 
 app.listen(8080, ()=> console.info("Hello! Listening on port 8080"));

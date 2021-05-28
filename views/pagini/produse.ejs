@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Produse</title>
+    <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
+    <%- include('../fragmente/head')%>
+    <script>
+      window.onload=function(){
+    var rng=document.getElementById("inp-pret");
+	  rng.parentNode.insertBefore(document.createTextNode(rng.min),rng);
+	  rng.parentNode.appendChild(document.createTextNode(rng.max));
+    let spval=document.createElement("span");
+	  rng.parentNode.appendChild(spval)
+    rng.value=0;
+    spval.innerHTML=" ("+rng.value+")";
+    rng.onchange=function(){
+        rng.nextSibling.nextSibling.innerHTML=" ("+this.value+")";
+    }
+        
+        let btn=document.getElementById("filtreaza");
+        btn.onclick=function(){
+            let numeInp=document.getElementById("filtru_text");
+            let nume_inp=numeInp.value;
+            let minPret=document.getElementById("inp-pret").value;
+            let categ=document.getElementById("inp-categorie").value;
+            let produse=document.getElementsByClassName("produs");
+            var comp=[];
+            for(var option of document.getElementById("i_sel_multiplu").options)
+            {
+              if(option.selected){
+                comp.push(option.value);
+              }
+            }
+            let voucher=document.getElementById("i_check");
+        
+            for(let prod of produse)
+            {
+              prod.style.display="none";
+              let nume_produs=prod.getElementsByClassName("val-nume")[0].innerHTML;
+              var conditie1= (nume_inp==nume_produs || nume_inp=="Toate");
+              let pret= parseInt(prod.getElementsByClassName("val-pret")[0].innerHTML)
+              let conditie2 = pret>=minPret;
+              let categ_produse=prod.getElementsByClassName("val-categorie")[0].innerHTML;
+              let conditie3=( categ_produse==categ || categ=="toate");
+              let mod_exp=prod.getElementsByClassName("val-exp")[0].innerHTML
+              let val_v=prod.getElementsByClassName("val-voucher")[0].innerHTML
+              //conditie4= (val_v.includes('Da') && voucher.checked==true) || (val_v.includes('Nu') && voucher.checked==false);
+              let compatibil=prod.getElementsByClassName("val-compatibil")[0].innerHTML;
+              compatibil=compatibil.split(";");
+              compatibil=compatibil.filter(entry=>entry.trim()!='');
+              conditieTotala= conditie1 && conditie2 && conditie3 //&& conditie4;
+              if(conditieTotala)
+              {
+                for(let m of comp)
+                {
+                  for(let i of compatibil){
+                    console.log(i);
+                  if(i.includes(m)==false)
+                  {
+                    prod.style.display="block";
+                    continue m;
+                  }
+                }
+              }
+            }
+        }
+        
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="header-div"><%- include("../fragmente/header") %></div>
+
+    <main>
+
+
+      <section>
+        <h1>Produse</h1>
+        <div class="filtre">
+        <label>Nume:<input type="text" id="filtru_text" value="Toate"></label>
+        <label> Pret minim: <input type="range" id="inp-pret" value="0" min="0"  max="130" ></label>
+        <label>Categorie:
+          <select id="inp-categorie">
+              <option value="toate">toate</option>
+              <% for( let categorie of locals.categorii) { %>
+                  <option value="<%- categorie %>"><%- categorie %></option>
+              <% } %>
+          </select>
+        </label>
+        <label>Compatibilitate(selectati valorile pe care nu le doriti):
+          <select id="i_sel_multiplu" multiple size="4">
+            <option value="Toate" selected>Toate</option>
+            <option value="Mercedes" >Mercedes </option>
+            <option value="MULTIMARCA" >MULTIMARCA </option>
+            <option value="Seat" >Seat</option>
+            <option value="Unisex" >Unisex</option>
+            <option value="BMW" >BMW</option>
+            <option value="AUDI" >AUDI</option>
+          </select>
+        </label>
+        <label>Descriere:
+          <textarea id="i_textarea">Descriere default</textarea>
+        </label>
+        <span>Culoare:</span>
+        <label>Toate culorile 
+          <input id="i_check1" name="gr_chck" checked value="Toate" type="checkbox"/>
+        </label>
+        <label>Mai multe culori
+          <input id="i_check2" name="gr_chck"  value="Mai multe culori" type="checkbox"/>
+        </label>
+        <label>Negru
+          <input id="i_check3" name="gr_chck"  value="Negru" type="checkbox"/>
+        </label>
+        <label>Albastru
+          <input id="i_check4" name="gr_chck"  value="albastru" type="checkbox"/>
+        </label>
+        <div> Culoare:
+          <label>Toate culorile
+            <input id="i_rad1" checked name="gr_rad" value="negru" type="radio"/>
+          </label>
+          <label>Negru
+            <input id="i_rad2" name="gr_rad" value="negru" type="radio"/>
+          </label>
+          <label>Albastru
+            <input id="i_rad3" name="gr_rad" value="albastru" type="radio"/>
+          </label>
+          <label>Mai multe culori
+            <input id="i_rad4" name="gr_rad" value="mai multe culori" type="radio"/>
+          </label>
+        </div>
+        <button id="filtreaza">Filtreaza</button>
+        </div>
+        
+        <% for(let prod of locals.produse ){ %>
+        <article class="produs">
+        <div class="produse">
+          <div class="div1">
+              <h2 class="nume">
+                <a href="/produs/<%- prod.id %>">
+                  <span class=val-nume><%- prod.nume %></span></a
+                >
+              </h2>
+
+              <p class="categorie">
+                <span class="caracteristica ">Categorie:</span>
+                <span class="val-categorie"><%- prod.categorie %></span>
+              </p>
+              <img
+                src="/resurse/imagini/produse/<%- prod.imagine %>"
+                alt="imagine produs"
+              />
+              <p class="descriere">
+                <span class="caracteristica">Descriere:</span>
+                <span class="val-descriere"><%-prod.descriere%></span>
+              </p>
+           
+          </div>
+          <div class="div2">
+            <p class="pret">
+              <span class="caracteristica">Pret:</span>
+              <span class="val-pret" ><%- prod.pret %></span>
+            </p>
+            <p class="culoare">
+              <span class="caracteristica ">Culoare:</span>
+              <span class="val-culoare"><%- prod.culoare %></span>
+            </p>
+            <p class="Voucher">
+              <span class="caracteristica">Voucher:</span>
+              <span class="val-voucher"> <% if(prod.voucher){ %> Da<% } else{ %> Nu<% } %> </span>
+            </p>
+            <p class="compatibil">
+              <span class="caracteristica">Compatibil pentru:</span>
+              <span class="val-compatibil"
+                ><%for( let comp of prod.compatibil){ %> <%- comp %>; <% } %>
+              </span>
+            </p>
+            <p class="data_adaug">
+              <span class="caracteristica">Data Adaugare:</span>
+              <span class="val-data"><time datetime="<%- prod.data_adaug %>"><%- prod.data_adaugare%><time></span>
+            </p>
+            <p class="mod_expediere">
+              <span class="caracteristica">Mod Expediere:</span>
+              <span class="val-exp"><%- prod.mod_exp%></span>
+            </p>
+          </div>
+        
+        </div>
+</article>
+        <% } %>
+      </section>
+
+      <%- include("../fragmente/watermark") %>
+    </main>
+
+    <footer><%- include("../fragmente/footer") %></footer>
+  </body>
+</html>
