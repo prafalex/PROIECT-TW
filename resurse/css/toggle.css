@@ -1,0 +1,41 @@
+
+#dark-mode-toggle{
+    display:none;
+}
+.toggle{
+    position:absolute;
+    right:0;
+}
+#dark-mode-toggle + label{
+    top:15px;
+    content:'';
+    position:absolute;
+    right:0;
+    display:inline-block;
+    cursor:pointer;
+    height:60px;
+    width:60px;
+    border-radius:50%;
+    transition:all 0.3 ease-in-out;
+}
+#dark-mode-toggle:not(:checked) + label{
+   
+    background-color: transparent;
+    box-shadow:inset -18px -16px 1px 1px #7d8ea2;
+}
+#dark-mode-toggle:checked + label {
+    background-color: gold;
+}
+
+#text-toggle{
+    font-family: 'Parisienne', cursive;
+    font-size:30px;
+    position:relative;
+    font-weight: bold;
+        right:80px;
+}
+.sageata{
+   transform: rotate(90deg);
+   margin-left:5px;
+   
+}

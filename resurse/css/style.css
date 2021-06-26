@@ -7,7 +7,7 @@ html{
 #watermark{
   display:none;
 }
-html{
+body{
   background-color:var(--background-color);
   color:black;
 }

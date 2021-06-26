@@ -6,3 +6,15 @@
     --text-color:#d4ebf2 ;
     --footer-color:#242424;
 }
+.darkmode{
+    --background-color:#030a0d ;
+    --nav-color:#010437 ;
+    --top-color:#1631c3 ;
+    --text-footer:#69798c ;
+    --text-color:  #242424;
+    --footer-color:#d4ebf2 ; 
+}
+body{
+    color: var(--footer-color);
+    transition: all 0.3s ;
+}

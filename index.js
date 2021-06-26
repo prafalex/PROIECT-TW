@@ -17,6 +17,8 @@ const client=new Client({
     database:'db_prod',
     port:5432
 });
+
+console.log(__dirname);
 client.connect();
 //set view
 app.set("view engine", "ejs");
@@ -247,6 +249,7 @@ app.get(["/","/index"],function(req,res){
 
 
 app.get("/galerie",function(req,res){
+    console.log("da");
     let vectorcai=Imagini();
     imgrand=ImaginiRand();
     const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
@@ -280,22 +283,24 @@ app.get("/about",function(req,res)
 });
 
 app.get("/produse",function(req,res){
-
-         console.log(req.url);
-         console.log("Query:",req.query.categ);
         var conditie = req.query.categ ? "and categorie='"+req.query.categ+"'": "";        
         const rezultat=client.query("select id,nume,pret,culoare,mod_exp,to_char(data_adaugare,'DD-Month-YYYY[Day]') data_adaugare,to_char(data_adaugare,'DD-MM-YYYY') data_adaug,voucher,compatibil,categorie,descriere,imagine from produse where 1=1"+conditie, function(err,rezProd){
-        
-            const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rez){
+            const rez2=client.query("SELECT unnest(enum_range(NULL::categ_produs))",function(err,rezCateg){
+                const rez3=client.query("SELECT unnest(enum_range(NULL::mod_expediere))",function(err,rezEXP){
                 var i=0; 
-                var categorii=Object.values(rez.rows);
-                for(let categ of  rez.rows){
+                var categorii=Object.values(rezCateg.rows);
+                for(let categ of  rezCateg.rows){
                      categorii[i]=categ.unnest;
                      i++;
-                 }
-                
-                 res.render("pagini/produse",{produse:rezProd.rows,categorii:categorii});
-        
+                }
+                var j=0;
+                var exp=Object.values(rezEXP.rows);
+                for(let e of rezEXP.rows){
+                    exp[j]=e.unnest;
+                    j++;
+                }
+                 res.render("pagini/produse",{produse:rezProd.rows,categorii:categorii,mod_exp: exp});   
+                });
             }); 
             
     })

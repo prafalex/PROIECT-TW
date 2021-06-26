@@ -6,7 +6,12 @@
 h1 {
   padding-left: 3%;
   color: #2775ce;
-  font-size: 30px;
+  font-size: 34px;
+}
+
+h2 {
+  color: #2775ce;
+  font-size: 28px;
 }
 .div2 {
   margin-top: 60px;
@@ -31,4 +36,9 @@ a {
   display:flex;
   flex-direction:column;
   gap:10px;
+  padding-left:2%;
+}
+
+.check{
+  padding-left:1%;
 }

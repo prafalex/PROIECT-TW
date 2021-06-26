@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css" />
     <%- include('../fragmente/head')%>
     <script>
-      window.onload=function(){
+    window.onload=function(){
+
+    // valoare input pret in paranteza
     var rng=document.getElementById("inp-pret");
 	  rng.parentNode.insertBefore(document.createTextNode(rng.min),rng);
 	  rng.parentNode.appendChild(document.createTextNode(rng.max));
@@ -16,10 +18,12 @@
     rng.onchange=function(){
         rng.nextSibling.nextSibling.innerHTML=" ("+this.value+")";
     }
-        
-        let btn=document.getElementById("filtreaza");
+   
+       
+    let btn=document.getElementById("filtreaza");
         btn.onclick=function(){
-            let numeInp=document.getElementById("filtru_text");
+          var hasNumber = /\d/;  
+          let numeInp=document.getElementById("filtru_text");
             let nume_inp=numeInp.value;
             let minPret=document.getElementById("inp-pret").value;
             let categ=document.getElementById("inp-categorie").value;
@@ -31,53 +35,169 @@
                 comp.push(option.value);
               }
             }
-            let voucher=document.getElementById("i_check");
+            var mod=[];
+            let checkboxes=document.getElementsByName("gr_chck");
+            for(let ch of checkboxes){
+              if(ch.checked)
+                mod.push(ch.value);
+            } 
+
+            let textarea=document.getElementById("i_textarea").value;
+            var radio=[];
+            let radiobuttons=document.getElementsByName("gr_rad");
+            for(let rad of radiobuttons){
+              if(rad.checked){
+                radio.push(rad.value);
+                break;
+              }
+            }
+          var conditie1_input= hasNumber.test(nume_inp);
+          var conditie2_input=hasNumber.test(textarea);
+          var conditie_input=conditie1_input || conditie2_input;
+          if(conditie_input)
+          {
+            if(conditie1_input)
+              alert("Nume invalid");
+            if(conditie2_input)
+              alert("Descriere invalida");
+          }
+          else{
         
             for(let prod of produse)
             {
               prod.style.display="none";
               let nume_produs=prod.getElementsByClassName("val-nume")[0].innerHTML;
               var conditie1= (nume_inp==nume_produs || nume_inp=="Toate");
+
               let pret= parseInt(prod.getElementsByClassName("val-pret")[0].innerHTML)
               let conditie2 = pret>=minPret;
+
               let categ_produse=prod.getElementsByClassName("val-categorie")[0].innerHTML;
               let conditie3=( categ_produse==categ || categ=="toate");
-              let mod_exp=prod.getElementsByClassName("val-exp")[0].innerHTML
+
               let val_v=prod.getElementsByClassName("val-voucher")[0].innerHTML
-              //conditie4= (val_v.includes('Da') && voucher.checked==true) || (val_v.includes('Nu') && voucher.checked==false);
+
               let compatibil=prod.getElementsByClassName("val-compatibil")[0].innerHTML;
               compatibil=compatibil.split(";");
-              compatibil=compatibil.filter(entry=>entry.trim()!='');
-              conditieTotala= conditie1 && conditie2 && conditie3 //&& conditie4;
+              compatibil = compatibil.map(el => el.trim());
+
+              let mod_exp=prod.getElementsByClassName("val-exp")[0].innerHTML;
+              
+              let descriere=prod.getElementsByClassName("val-descriere")[0].innerHTML;
+              let conditie4= (descriere.includes(textarea) || textarea=="Descriere default")
+              
+              let culoare=prod.getElementsByClassName("val-culoare")[0].innerHTML;
+              let conditie5=(radio[0].toUpperCase()==culoare.toUpperCase() || radio[0]=="toate");
+              
+              
+              conditieTotala= conditie1 && conditie2 && conditie3 && conditie4 && conditie5;
               if(conditieTotala)
               {
-                for(let m of comp)
-                {
-                  for(let i of compatibil){
-                    console.log(i);
-                  if(i.includes(m)==false)
-                  {
-                    prod.style.display="block";
-                    continue m;
+                let cont=0;
+                for(let c of comp){
+                  for(let cmp of compatibil){
+                    if(c==cmp){
+                    cont++;
                   }
+                } }
+              
+                if(cont==0){
+                  for(let m of mod)
+                    if(m.includes(mod_exp))
+                    {
+                      prod.style.display="block";
+                    }
+                        
                 }
-              }
-            }
-        }
+                  
+             }
+        } }
+            
         
         }
+     
+    function sortProduse(factor){
+      var produse=document.getElementsByClassName("produs");
+      let arrayProduse=Array.from(produse);
+      arrayProduse.sort(function(art1,art2){
+        let exp1=art1.getElementsByClassName("val-exp")[0].innerHTML;
+        let exp2=art2.getElementsByClassName("val-exp")[0].innerHTML;
+        let pret1=art1.getElementsByClassName("val-pret")[0].innerHTML;
+        let pret2=art2.getElementsByClassName("val-pret")[0].innerHTML;
+       
+        let rez=factor*exp1.localeCompare(exp2);
+        if(rez==0)
+          return factor*(pret1-pret2);
+        return rez;
+
+      });
+        for (let prod of arrayProduse){
+            prod.parentNode.appendChild(prod);
+        }
+
+    }    
+
+    btn=document.getElementById("sortCresc");
+    btn.onclick=function(){
+        sortProduse(1);
+    }
+    btn=document.getElementById("sortDescresc");
+    btn.onclick=function(){
+        sortProduse(-1);
+    }
+
+    btn=document.getElementById("resetare");
+    btn.onclick=function(){
+      let produse=document.getElementsByClassName("produs");
+      for(let prod of produse){
+        prod.style.display="block";
       }
+    }  
+    
+    btn=document.getElementById("calcul");
+    btn.onclick=function(){
+      let suma=0;
+      let i=0;
+      let produse=document.getElementsByClassName("produs");
+      for(let prod of produse){
+        if(prod.style.display=="block" || prod.style.display=="")
+        {
+          suma=suma+ parseInt(prod.getElementsByClassName("val-pret")[0].innerHTML);
+          i++;
+        }
+        
+      }
+
+      const newDiv=document.createElement("div");
+      const div=document.getElementById("filtru");
+      newDiv.innerHTML="Pretul mediu pentru produsele afisate este: "+ suma/i;
+      div.appendChild(newDiv);
+      newDiv.setAttribute("class","div-pret");  
+      newDiv.style.position="fixed";
+      setTimeout(function(){
+        newDiv.remove();
+      },2000)
+    }
+
+    }
     </script>
   </head>
   <body>
     <div class="header-div"><%- include("../fragmente/header") %></div>
-
     <main>
 
 
       <section>
         <h1>Produse</h1>
-        <div class="filtre">
+        <div class="filtre" id="filtru">
+          <h2>Filtre</h2>
+          <div class="butoane">
+            <button id="filtreaza">Filtreaza</button>
+            <button id="sortCresc">Sorteaza crescator dupa mod expediere,pret</button>
+            <button id="sortDescresc">Sorteaza descrescator dupa mod expediere,pret</button>
+            <button id="calcul">Calculare pret mediu</button>
+            <button id="resetare">Reseteaza</button>
+          </div>
         <label>Nume:<input type="text" id="filtru_text" value="Toate"></label>
         <label> Pret minim: <input type="range" id="inp-pret" value="0" min="0"  max="130" ></label>
         <label>Categorie:
@@ -90,50 +210,49 @@
         </label>
         <label>Compatibilitate(selectati valorile pe care nu le doriti):
           <select id="i_sel_multiplu" multiple size="4">
-            <option value="Toate" selected>Toate</option>
             <option value="Mercedes" >Mercedes </option>
             <option value="MULTIMARCA" >MULTIMARCA </option>
             <option value="Seat" >Seat</option>
             <option value="Unisex" >Unisex</option>
             <option value="BMW" >BMW</option>
-            <option value="AUDI" >AUDI</option>
+            <option value="Ford" >Ford</option>
+            <option value="VW" >VW</option>
           </select>
         </label>
         <label>Descriere:
           <textarea id="i_textarea">Descriere default</textarea>
         </label>
-        <span>Culoare:</span>
-        <label>Toate culorile 
-          <input id="i_check1" name="gr_chck" checked value="Toate" type="checkbox"/>
+        <span>Mod expediere:</span>
+        <%
+        let i =1;
+        for( let exp of locals.mod_exp) { %>
+          
+        <label class="check"><%- exp %> 
+            <input id="i_check<%-i%>"  name="gr_chck" checked value="<%- exp %> " type="checkbox"/>
         </label>
-        <label>Mai multe culori
-          <input id="i_check2" name="gr_chck"  value="Mai multe culori" type="checkbox"/>
-        </label>
-        <label>Negru
-          <input id="i_check3" name="gr_chck"  value="Negru" type="checkbox"/>
-        </label>
-        <label>Albastru
-          <input id="i_check4" name="gr_chck"  value="albastru" type="checkbox"/>
-        </label>
+        <%i=i+1%>
+      <% } %>
+
         <div> Culoare:
           <label>Toate culorile
-            <input id="i_rad1" checked name="gr_rad" value="negru" type="radio"/>
+            <input id="i_rad1" checked name="gr_rad" value="toate" type="radio"/>
           </label>
           <label>Negru
-            <input id="i_rad2" name="gr_rad" value="negru" type="radio"/>
+            <input id="i_rad2" name="gr_rad" value="Negru" type="radio"/>
           </label>
           <label>Albastru
             <input id="i_rad3" name="gr_rad" value="albastru" type="radio"/>
           </label>
           <label>Mai multe culori
-            <input id="i_rad4" name="gr_rad" value="mai multe culori" type="radio"/>
+            <input id="i_rad4" name="gr_rad" value="Mai multe culori" type="radio"/>
           </label>
         </div>
-        <button id="filtreaza">Filtreaza</button>
+        
+        
         </div>
         
         <% for(let prod of locals.produse ){ %>
-        <article class="produs">
+        <article class="produs" id="ad_ent<%-prod.id %>" >
         <div class="produse">
           <div class="div1">
               <h2 class="nume">
